@@ -1,0 +1,176 @@
+.container {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.navbar {
+  background-color: #2c3e50;
+  padding: 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: white;
+}
+
+.navbar-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin: 0;
+  color: white;
+}
+
+.navbar-buttons {
+  display: flex;
+  gap: 1rem;
+}
+
+.navbar-button {
+  background-color: #3498db;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.navbar-button:hover {
+  background-color: #2980b9;
+}
+
+.main-content {
+  display: flex;
+  flex: 1;
+  height: calc(100vh - 64px);
+  overflow: hidden;
+}
+
+.sidebar {
+  width: 300px;
+  background-color: #f8f9fa;
+  padding: 1rem;
+  overflow-y: auto;
+  border-right: 1px solid #dee2e6;
+}
+
+.editor-container {
+  flex: 1;
+  padding: 0;
+  background-color: white;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  min-width: 0;
+}
+
+.editor-container > div {
+  height: 100% !important;
+  width: 100% !important;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.editor-container .w-md-editor {
+  flex: 1;
+  height: 100% !important;
+  width: 100% !important;
+  border: none;
+  margin: 0;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.editor-container .w-md-editor-content {
+  height: 100% !important;
+  width: 100% !important;
+  overflow: auto;
+  flex: 1;
+  display: flex;
+}
+
+.editor-container .wmde-markdown-var {
+  flex: 1;
+  min-width: 0;
+}
+
+.editor-container .w-md-editor-area {
+  min-width: 0;
+}
+
+.editor-container .w-md-editor-text-pre > code,
+.editor-container .w-md-editor-text-input {
+  font-size: 16px;
+  line-height: 1.6;
+  padding: 0.5rem;
+}
+
+.docs-content {
+  color: #2c3e50;
+}
+
+.docs-content h2 {
+  color: #34495e;
+  margin-top: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.docs-content p {
+  line-height: 1.6;
+  margin-bottom: 1rem;
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+  .main-content {
+    flex-direction: column;
+  }
+
+  .sidebar {
+    width: 100%;
+    height: auto;
+    border-right: none;
+    border-bottom: 1px solid #dee2e6;
+  }
+}
+
+/* 自定义滚动条样式 */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+
+
+@media (forced-colors: active) {
+  .navbar-button {
+    border: 1px solid ButtonText;
+    background-color: ButtonFace;
+    color: ButtonText;
+  }
+
+  .navbar-button:hover {
+    background-color: ButtonFace;
+    color: ButtonText;
+  }
+}

@@ -1,0 +1,99 @@
+.docs-page {
+  width: 100%;
+  min-height: 100vh;
+  background-color: #ffffff;
+  padding: 2rem;
+  margin: 0 auto;
+}
+
+.docs-header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.docs-header h1 {
+  font-size: 2.5rem;
+  color: #2c3e50;
+}
+
+.docs-body {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.docs-section {
+  margin-bottom: 3rem;
+}
+
+.docs-section h2 {
+  color: #34495e;
+  font-size: 1.8rem;
+  margin-bottom: 1.5rem;
+  border-bottom: 2px solid #eee;
+  padding-bottom: 0.5rem;
+}
+
+.docs-section h3 {
+  color: #2c3e50;
+  font-size: 1.4rem;
+  margin: 1.5rem 0 1rem;
+}
+
+.docs-section p {
+  line-height: 1.6;
+  color: #2c3e50;
+  margin-bottom: 1rem;
+}
+
+.docs-section ul,
+.docs-section ol {
+  margin-bottom: 1rem;
+  padding-left: 2rem;
+}
+
+.docs-section li {
+  line-height: 1.6;
+  margin-bottom: 0.5rem;
+  color: #2c3e50;
+}
+
+.syntax-example {
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.syntax-example pre {
+  background-color: #2c3e50;
+  border-radius: 4px;
+  padding: 1rem;
+  overflow-x: auto;
+}
+
+.syntax-example code {
+  color: #ffffff;
+  font-family: 'Courier New', Courier, monospace;
+}
+
+@media (max-width: 768px) {
+  .docs-page {
+    padding: 1rem;
+  }
+
+  .docs-header h1 {
+    font-size: 2rem;
+  }
+
+  .docs-section h2 {
+    font-size: 1.5rem;
+  }
+
+  .docs-section h3 {
+    font-size: 1.2rem;
+  }
+
+  .syntax-example {
+    padding: 1rem;
+  }
+}

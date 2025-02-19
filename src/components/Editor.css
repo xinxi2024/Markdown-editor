@@ -1,0 +1,268 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  background-color: #f8f9fa;
+  border-bottom: 1px solid #dee2e6;
+}
+
+.navbar-title {
+  margin: 0;
+  font-size: 1.5rem;
+  color: #2c3e50;
+}
+
+.navbar-buttons {
+  display: flex;
+  gap: 1rem;
+}
+
+.navbar-button {
+  padding: 0.5rem 1rem;
+  background-color: #3498db;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.navbar-button:hover {
+  background-color: #2980b9;
+}
+
+.main-content {
+  display: flex;
+  flex: 1;
+  overflow: hidden;
+}
+
+.editor-container {
+  flex: 1;
+  overflow: auto;
+  padding: 1rem;
+}
+
+.outline-panel {
+  width: 250px;
+  background-color: #f8f9fa;
+  border-left: 1px solid #dee2e6;
+  padding: 1rem;
+  overflow-y: auto;
+  height: 100%;
+}
+
+.w-md-editor {
+  height: calc(100vh - 80px) !important;
+}
+
+.w-md-editor-fullscreen {
+  margin-right: 250px !important;
+}
+
+.w-md-editor-show-live {
+  height: 100% !important;
+}
+
+@media (max-width: 768px) {
+  .outline-panel {
+    position: static;
+    width: 100%;
+    border-left: none;
+    border-bottom: 1px solid #dee2e6;
+  }
+
+  .w-md-editor-fullscreen {
+    margin-right: 0 !important;
+  }
+}
+
+.outline-title {
+  font-size: 1.2rem;
+  color: #2c3e50;
+  margin-bottom: 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid #dee2e6;
+}
+
+.outline-content {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.outline-item {
+  cursor: pointer;
+  padding: 0.25rem 0;
+  color: #2c3e50;
+  font-size: 0.9rem;
+  transition: color 0.2s;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.outline-item:hover {
+  color: #3498db;
+}
+
+/* 优化编辑器样式 */
+.w-md-editor {
+  border: none !important;
+  border-radius: 0 !important;
+}
+
+.w-md-editor-text {
+  font-size: 16px !important;
+  line-height: 1.6 !important;
+}
+
+.wmde-markdown {
+  font-size: 16px !important;
+  line-height: 1.6 !important;
+  padding: 1rem !important;
+}
+
+.wmde-markdown code {
+  background-color: #f8f9fa !important;
+  padding: 0.2em 0.4em !important;
+  border-radius: 3px !important;
+  font-size: 0.9em !important;
+}
+
+.wmde-markdown pre {
+  background-color: #2c3e50 !important;
+  padding: 1rem !important;
+  border-radius: 8px !important;
+}
+
+.wmde-markdown pre code {
+  background-color: transparent !important;
+  color: #ffffff !important;
+  padding: 0 !important;
+}
+
+.wmde-markdown blockquote {
+  border-left: 4px solid #3498db !important;
+  padding: 0.5rem 1rem !important;
+  color: #34495e !important;
+  background-color: #f8f9fa !important;
+}
+
+.wmde-markdown table {
+  border-collapse: collapse !important;
+  width: 100% !important;
+  margin-bottom: 1rem !important;
+}
+
+.wmde-markdown th,
+.wmde-markdown td {
+  border: 1px solid #dee2e6 !important;
+  padding: 0.5rem !important;
+}
+
+.wmde-markdown th {
+  background-color: #f8f9fa !important;
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+  .outline-panel {
+    display: none;
+  }
+}
+
+@media (forced-colors: active) {
+  .outline-panel {
+    border-left-color: CanvasText;
+    background-color: Canvas;
+  }
+  
+  .outline-title {
+    color: CanvasText;
+    border-bottom-color: CanvasText;
+  }
+  
+  .outline-item {
+    color: CanvasText;
+  }
+  
+  .outline-item:hover {
+    color: LinkText;
+  }
+
+  .navbar-button {
+    border: 1px solid CanvasText;
+    background-color: ButtonFace;
+    color: CanvasText;
+  }
+
+  .navbar-button:hover {
+    background-color: ButtonFace;
+    color: CanvasText;
+  }
+}
+
+.wmde-markdown pre code {
+  background-color: transparent !important;
+  color: #ffffff !important;
+  padding: 0 !important;
+}
+
+.wmde-markdown blockquote {
+  border-left: 4px solid #3498db !important;
+  padding: 0.5rem 1rem !important;
+  color: #34495e !important;
+  background-color: #f8f9fa !important;
+}
+
+.wmde-markdown table {
+  border-collapse: collapse !important;
+  width: 100% !important;
+  margin-bottom: 1rem !important;
+}
+
+.wmde-markdown th,
+.wmde-markdown td {
+  border: 1px solid #dee2e6 !important;
+  padding: 0.5rem !important;
+}
+
+.wmde-markdown th {
+  background-color: #f8f9fa !important;
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+  .outline-panel {
+    display: none;
+  }
+}
+
+@media (forced-colors: active) {
+  .outline-panel {
+    border-left-color: ButtonText;
+    background-color: Canvas;
+  }
+  
+  .outline-title {
+    color: ButtonText;
+    border-bottom-color: ButtonText;
+  }
+  
+  .outline-item {
+    color: ButtonText;
+  }
+  
+  .outline-item:hover {
+    color: LinkText;
+  }
+}
