@@ -1,4 +1,5 @@
 import './Docs.css';
+import Logo from './Logo';
 
 const Docs = () => {
   return (
@@ -172,6 +173,7 @@ $${`
           </div>
         </section>
       </div>
+      <Logo position="bottom-center" />
     </div>
   );
 };

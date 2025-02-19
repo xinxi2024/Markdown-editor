@@ -1,0 +1,119 @@
+.logo {
+  position: fixed;
+  z-index: 1000;
+  padding: 10px;
+  opacity: 0.85;
+  bottom: 25px;  /* 调整底部距离 */
+  right: 25px;   /* 调整右侧距离 */
+  transform: scale(0.85);
+}
+
+/* 移除所有位置相关的类样式 */
+.logo.right-bottom,
+.logo.left-bottom,
+.logo.bottom-center {
+  display: none;
+}
+
+.logo-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+}
+
+.logo-text {
+  font-family: 'Playfair Display', 'Times New Roman', serif;
+  font-size: 18px;
+  letter-spacing: 3px;
+  cursor: default;
+  transition: all 0.4s ease;
+  display: inline-block;
+}
+
+.logo-s {
+  color: #2c3e50;
+  font-weight: 700;
+  font-size: 22px;
+  font-style: italic;
+  text-shadow: 
+    2px 2px 4px rgba(44, 62, 80, 0.2),
+    -1px -1px 0 rgba(255, 255, 255, 0.3);
+  display: inline-block;
+}
+
+.logo-rest {
+  color: #34495e;
+  font-weight: 500;
+  display: inline-block;
+}
+
+.logo-line {
+  width: 0;
+  height: 1.5px;
+  background: linear-gradient(90deg, 
+    #2c3e50,
+    #34495e,
+    #2c3e50
+  );
+  transition: width 0.4s ease;
+  opacity: 0.8;
+  margin: 3px 0;
+}
+
+.logo-tagline {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 11px;
+  color: #34495e;
+  font-style: italic;
+  opacity: 0;
+  transform: translateY(-3px);
+  transition: all 0.4s ease;
+  letter-spacing: 1.5px;
+  display: block;
+  text-align: center;
+}
+
+/* 悬停效果 */
+.logo:hover {
+  opacity: 1;
+}
+
+.logo:hover .logo-line {
+  width: 100%;
+}
+
+.logo:hover .logo-tagline {
+  opacity: 0.8;
+  transform: translateY(0);
+}
+
+.logo:hover .logo-text {
+  transform: translateY(-2px);
+}
+
+/* 编辑器全屏模式下的样式 */
+.w-md-editor-fullscreen .logo {
+  opacity: 0.7;
+  transform: scale(0.85);
+}
+
+/* 移动设备适配 */
+@media (max-width: 768px) {
+  .logo {
+    padding: 8px;
+    transform: scale(0.8);
+  }
+  
+  .logo-text {
+    font-size: 16px;
+  }
+  
+  .logo-s {
+    font-size: 20px;
+  }
+  
+  .logo-tagline {
+    font-size: 10px;
+  }
+} 
