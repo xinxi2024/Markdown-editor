@@ -10,6 +10,22 @@ export default defineConfig({
   },
   preview: {
     host: true,
-    port: 3000
+    port: 3000,
+    allowedHosts: [
+      'ysloaner-markdown-editor.onrender.com'
+    ]
+  },
+  build: {
+    outDir: 'dist',
+    assetsDir: 'assets',
+    sourcemap: false,
+    minify: 'terser',
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          vendor: ['react', 'react-dom', 'react-router-dom']
+        }
+      }
+    }
   }
 })
