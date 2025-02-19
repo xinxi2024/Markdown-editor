@@ -13,6 +13,9 @@ export default defineConfig({
     }
   },
   preview: {
+    allowedHosts: [
+      'ysloaner-markdown-editor.onrender.com'
+    ],
     host: true,
     port: 3000,
     strictPort: true
