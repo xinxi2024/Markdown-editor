@@ -4,6 +4,7 @@ import { saveAs } from 'file-saver';
 import katex from 'katex';
 import 'katex/dist/katex.min.css';
 import './Editor.css';
+import BackButton from './BackButton';
 
 interface Heading {
   level: number;
@@ -157,99 +158,103 @@ const Editor = () => {
   }, [value]);
 
   return (
-    <div className="container">
-      <nav className="navbar">
-        <h1 className="navbar-title">Markdown文档编辑器</h1>
-        <div className="navbar-buttons">
-          <label className="navbar-button">
-            导入
-            <input
-              type="file"
-              accept=".md"
-              style={{ display: 'none' }}
-              onChange={handleImport}
-            />
-          </label>
-          <button className="navbar-button" onClick={() => {
-            const blob = new Blob([value], { type: 'text/markdown;charset=utf-8' });
-            saveAs(blob, 'document.md');
-          }}>
-            导出
-          </button>
-          <button 
-            className={`navbar-button ${showOutline ? 'active' : ''}`}
-            onClick={() => setShowOutline(prev => !prev)}
-            title="显示/隐藏大纲 (Alt+O)"
-          >
-            大纲
-          </button>
-        </div>
-      </nav>
-      <div className={`main-content`}>
-        <div className={`editor-container ${showOutline ? 'with-outline' : ''}`}>
-          <MDEditor
-            value={value}
-            onChange={(val) => setValue(val || '')}
-            preview="live"
-            height="100%"
-            hideToolbar={false}
-            className={showOutline ? 'with-outline' : ''}
-            previewOptions={{
-              showCodeRowNumbers: true,
-              previewClass: "markdown-preview",
-              components: {
-                math: ({ children }: MathProps) => {
-                  try {
-                    return <div dangerouslySetInnerHTML={{ __html: katex.renderToString(children, { throwOnError: false }) }} />;
-                  } catch (error) {
-                    console.error('数学公式渲染错误:', error);
-                    return <div className="error-message">公式渲染出错</div>;
+    <>
+      <div className="container">
+        <nav className="navbar">
+          <div className="navbar-left">
+            <BackButton />
+          </div>
+          <div className="navbar-buttons">
+            <label className="navbar-button">
+              导入
+              <input
+                type="file"
+                accept=".md"
+                style={{ display: 'none' }}
+                onChange={handleImport}
+              />
+            </label>
+            <button className="navbar-button" onClick={() => {
+              const blob = new Blob([value], { type: 'text/markdown;charset=utf-8' });
+              saveAs(blob, 'document.md');
+            }}>
+              导出
+            </button>
+            <button 
+              className={`navbar-button ${showOutline ? 'active' : ''}`}
+              onClick={() => setShowOutline(prev => !prev)}
+              title="显示/隐藏大纲 (Alt+O)"
+            >
+              大纲
+            </button>
+          </div>
+        </nav>
+        <div className={`main-content`}>
+          <div className={`editor-container ${showOutline ? 'with-outline' : ''}`}>
+            <MDEditor
+              value={value}
+              onChange={(val) => setValue(val || '')}
+              preview="live"
+              height="100%"
+              hideToolbar={false}
+              className={showOutline ? 'with-outline' : ''}
+              previewOptions={{
+                showCodeRowNumbers: true,
+                previewClass: "markdown-preview",
+                components: {
+                  math: ({ children }: MathProps) => {
+                    try {
+                      return <div dangerouslySetInnerHTML={{ __html: katex.renderToString(children, { throwOnError: false }) }} />;
+                    } catch (error) {
+                      console.error('数学公式渲染错误:', error);
+                      return <div className="error-message">公式渲染出错</div>;
+                    }
                   }
                 }
-              }
-            }}
-            components={{
-              preview: (source) => {
-                try {
-                  return <MDEditor.Markdown source={source} />
-                } catch (error) {
-                  console.error('Markdown渲染错误:', error);
-                  return <div className="error-message">内容渲染出错</div>
+              }}
+              components={{
+                preview: (source) => {
+                  try {
+                    return <MDEditor.Markdown source={source} />
+                  } catch (error) {
+                    console.error('Markdown渲染错误:', error);
+                    return <div className="error-message">内容渲染出错</div>
+                  }
                 }
-              }
-            }}
-            textareaProps={{
-              placeholder: "在此输入Markdown文本..."
-            }}
-          />
-        </div>
-        {showOutline && (
-          <div className="outline-panel">
-            <h3 className="outline-title">文档大纲</h3>
-            <div className="outline-content">
-              {headings.map((heading, index) => (
-                <div
-                  key={index}
-                  className="outline-item"
-                  style={{ paddingLeft: `${(heading.level - 1) * 20}px` }}
-                  onClick={() => {
-                    const lines = value.split('\n');
-                    const position = lines.slice(0, heading.line).join('\n').length;
-                    const textarea = document.querySelector('.w-md-editor-text-input') as HTMLTextAreaElement;
-                    if (textarea) {
-                      textarea.setSelectionRange(position, position);
-                      textarea.focus();
-                    }
-                  }}
-                >
-                  {heading.text}
-                </div>
-              ))}
-            </div>
+              }}
+              textareaProps={{
+                placeholder: "在此输入Markdown文本..."
+              }}
+            />
           </div>
-        )}
+          {showOutline && (
+            <div className="outline-panel">
+              <h3 className="outline-title">文档大纲</h3>
+              <div className="outline-content">
+                {headings.map((heading, index) => (
+                  <div
+                    key={index}
+                    className="outline-item"
+                    style={{ paddingLeft: `${(heading.level - 1) * 20}px` }}
+                    onClick={() => {
+                      const lines = value.split('\n');
+                      const position = lines.slice(0, heading.line).join('\n').length;
+                      const textarea = document.querySelector('.w-md-editor-text-input') as HTMLTextAreaElement;
+                      if (textarea) {
+                        textarea.setSelectionRange(position, position);
+                        textarea.focus();
+                      }
+                    }}
+                  >
+                    {heading.text}
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 
