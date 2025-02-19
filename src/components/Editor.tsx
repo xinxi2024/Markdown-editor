@@ -11,6 +11,10 @@ interface Heading {
   line: number;
 }
 
+interface MathProps {
+  children: string;
+}
+
 const Editor = () => {
   const [value, setValue] = useState<string>('# Markdown编辑器');
   const [showOutline, setShowOutline] = useState(false);
@@ -194,8 +198,7 @@ const Editor = () => {
               showCodeRowNumbers: true,
               previewClass: "markdown-preview",
               components: {
-                math: (props) => {
-                  const { children } = props;
+                math: ({ children }: MathProps) => {
                   try {
                     return <div dangerouslySetInnerHTML={{ __html: katex.renderToString(children, { throwOnError: false }) }} />;
                   } catch (error) {
