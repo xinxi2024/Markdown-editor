@@ -25,6 +25,7 @@ class ErrorBoundary extends Component<Props, State> {
     console.error('错误详情:', error);
     console.error('错误堆栈:', errorInfo);
     this.setState({
+      hasError: true,
       error,
       errorInfo
     });
@@ -38,10 +39,23 @@ class ErrorBoundary extends Component<Props, State> {
           textAlign: 'center',
           backgroundColor: '#fff3f3',
           borderRadius: '8px',
-          margin: '20px'
+          margin: '20px',
+          boxShadow: '0 2px 4px rgba(0,0,0,0.1)'
         }}>
-          <h2 style={{ color: '#e74c3c' }}>抱歉，出现了一些问题</h2>
-          <p style={{ color: '#666' }}>我们正在努力修复这个问题</p>
+          <h2 style={{ color: '#e74c3c', marginBottom: '10px' }}>抱歉，出现了一些问题</h2>
+          <p style={{ color: '#666', marginBottom: '15px' }}>我们正在努力修复这个问题</p>
+          {this.state.error && (
+            <div style={{ 
+              backgroundColor: '#fde8e8', 
+              padding: '10px', 
+              borderRadius: '4px',
+              marginBottom: '15px',
+              textAlign: 'left'
+            }}>
+              <p style={{ color: '#c53030', marginBottom: '5px' }}><strong>错误信息：</strong></p>
+              <p style={{ color: '#742a2a', fontSize: '14px' }}>{this.state.error.message}</p>
+            </div>
+          )}
           <button
             onClick={() => window.location.reload()}
             style={{
@@ -51,8 +65,11 @@ class ErrorBoundary extends Component<Props, State> {
               border: 'none',
               borderRadius: '4px',
               cursor: 'pointer',
-              marginTop: '10px'
+              marginTop: '10px',
+              transition: 'background-color 0.2s'
             }}
+            onMouseOver={(e) => e.currentTarget.style.backgroundColor = '#2980b9'}
+            onMouseOut={(e) => e.currentTarget.style.backgroundColor = '#3498db'}
           >
             刷新页面
           </button>

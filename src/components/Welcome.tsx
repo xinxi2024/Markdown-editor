@@ -4,11 +4,7 @@ const Welcome = () => {
     const navigate = useNavigate();
 
     return (
-        <div
-            className="welcome-container"
-            // 向右平移固定百分比距离
-            style={{ transform: "translateX(50%)" }}
-        >
+        <div className="welcome-container">
             <div className="welcome-content">
                 <h1>欢迎使用 Markdown 编辑器</h1>
                 {/* p标签居中 并且与按钮相隔固定距离*/}

@@ -9,11 +9,25 @@ function App() {
   return (
     <ErrorBoundary>
       <Router>
-        <Routes>
-          <Route path="/" element={<Welcome />} />
-          <Route path="/docs" element={<Docs />} />
-          <Route path="/editor" element={<Editor />} />
-        </Routes>
+        <div className="app-container">
+          <Routes>
+            <Route path="/" element={
+              <div className="page-container">
+                <Welcome />
+              </div>
+            } />
+            <Route path="/docs" element={
+              <div className="page-container">
+                <Docs />
+              </div>
+            } />
+            <Route path="/editor" element={
+              <div className="page-container">
+                <Editor />
+              </div>
+            } />
+          </Routes>
+        </div>
       </Router>
     </ErrorBoundary>
   );

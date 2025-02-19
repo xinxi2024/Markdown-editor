@@ -101,23 +101,75 @@ print("Hello World")
             <pre><code>行内公式：$E = mc^2$
 
 块级公式：
-$$
+$${`
 \\frac{-b \\pm \\sqrt{b^2-4ac}}{2a}
-$$</code></pre>
+`}$$</code></pre>
+          </div>
+        </section>
+
+        <section className="docs-section">
+          <h2>数学公式</h2>
+          <p>本编辑器支持LaTeX数学公式渲染，您可以使用以下语法：</p>
+          
+          <div className="syntax-example">
+            <h3>行内公式</h3>
+            <pre><code>这是一个行内公式：$E = mc^2$</code></pre>
+          </div>
+
+          <div className="syntax-example">
+            <h3>块级公式</h3>
+            <pre><code>$${`
+\\frac{-b \\pm \\sqrt{b^2-4ac}}{2a}
+`}$$</code></pre>
+          </div>
+
+          <div className="syntax-example">
+            <h3>常用数学符号</h3>
+            <pre><code>$${`
+\\sum_{i=1}^n i = \\frac{n(n+1)}{2}
+
+\\int_0^\\infty e^{-x^2} dx = \\frac{\\sqrt{\\pi}}{2}
+
+\\lim_{x \\to 0} \\frac{\\sin x}{x} = 1
+`}$$</code></pre>
           </div>
         </section>
 
         <section className="docs-section">
           <h2>快捷键</h2>
-          <ul>
-            <li><strong>Ctrl + B</strong>：加粗文本</li>
-            <li><strong>Ctrl + I</strong>：斜体文本</li>
-            <li><strong>Ctrl + K</strong>：插入链接</li>
-            <li><strong>Ctrl + Shift + O</strong>：切换大纲面板</li>
-            <li><strong>Ctrl + S</strong>：保存文档</li>
-            <li><strong>Ctrl + O</strong>：导入文档</li>
-            <li><strong>Ctrl + E</strong>：导出文档</li>
-          </ul>
+          <div className="syntax-example">
+            <h3>文档结构</h3>
+            <ul>
+              <li>Ctrl + 1~6：创建对应级别的标题</li>
+              <li>Alt + O：显示/隐藏大纲</li>
+            </ul>
+          </div>
+
+          <div className="syntax-example">
+            <h3>格式化</h3>
+            <ul>
+              <li>Ctrl + B：粗体</li>
+              <li>Ctrl + I：斜体</li>
+              <li>Ctrl + Shift + K：代码块</li>
+            </ul>
+          </div>
+
+          <div className="syntax-example">
+            <h3>列表</h3>
+            <ul>
+              <li>Ctrl + Shift + ]：无序列表</li>
+              <li>Ctrl + Shift + [：有序列表</li>
+            </ul>
+          </div>
+
+          <div className="syntax-example">
+            <h3>其他</h3>
+            <ul>
+              <li>Ctrl + T：插入表格（可自定义行列数）</li>
+              <li>Ctrl + S：保存文档</li>
+              <li>F11：全屏模式</li>
+            </ul>
+          </div>
         </section>
       </div>
     </div>

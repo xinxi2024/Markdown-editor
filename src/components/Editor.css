@@ -2,6 +2,7 @@
   display: flex;
   flex-direction: column;
   height: 100vh;
+  width: 100vw;
   overflow: hidden;
 }
 
@@ -33,22 +34,47 @@
   border-radius: 4px;
   cursor: pointer;
   transition: background-color 0.2s;
+  position: relative;
 }
 
 .navbar-button:hover {
   background-color: #2980b9;
 }
 
+.navbar-button:hover::after {
+  content: attr(title);
+  position: absolute;
+  bottom: -30px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #333;
+  color: white;
+  padding: 5px 10px;
+  border-radius: 4px;
+  font-size: 12px;
+  white-space: nowrap;
+  z-index: 1000;
+}
+
+.navbar-button.active {
+  background-color: #2980b9;
+  box-shadow: inset 0 0 5px rgba(0,0,0,0.2);
+}
+
 .main-content {
   display: flex;
   flex: 1;
+  width: 100%;
   overflow: hidden;
+  position: relative;
 }
 
 .editor-container {
   flex: 1;
-  overflow: auto;
-  padding: 1rem;
+  display: flex;
+  overflow: hidden;
+  padding: 0;
+  transition: margin-right 0.3s ease;
 }
 
 .outline-panel {
@@ -58,14 +84,26 @@
   padding: 1rem;
   overflow-y: auto;
   height: 100%;
+  position: absolute;
+  right: 0;
+  top: 0;
 }
 
 .w-md-editor {
-  height: calc(100vh - 80px) !important;
+  flex: 1;
+  display: flex !important;
+  flex-direction: column !important;
+  height: 100% !important;
+  border: none !important;
+  margin: 0 !important;
 }
 
 .w-md-editor-fullscreen {
-  margin-right: 250px !important;
+  position: fixed !important;
+  width: calc(100% - 250px) !important;
+  left: 0 !important;
+  right: 250px !important;
+  margin: 0 !important;
 }
 
 .w-md-editor-show-live {
@@ -74,14 +112,30 @@
 
 @media (max-width: 768px) {
   .outline-panel {
-    position: static;
+    position: fixed;
+    right: 0;
+    top: 0;
+    height: 100vh;
+    z-index: 1000;
+    background-color: #f8f9fa;
+    box-shadow: -2px 0 5px rgba(0,0,0,0.1);
+    width: 250px;
+    transform: translateX(100%);
+    transition: transform 0.3s ease;
+  }
+
+  .outline-panel.show {
+    transform: translateX(0);
+  }
+
+  .editor-container.with-outline {
+    margin-right: 0;
     width: 100%;
-    border-left: none;
-    border-bottom: 1px solid #dee2e6;
   }
 
   .w-md-editor-fullscreen {
-    margin-right: 0 !important;
+    width: 100% !important;
+    right: 0 !important;
   }
 }
 
@@ -115,11 +169,6 @@
 }
 
 /* 优化编辑器样式 */
-.w-md-editor {
-  border: none !important;
-  border-radius: 0 !important;
-}
-
 .w-md-editor-text {
   font-size: 16px !important;
   line-height: 1.6 !important;
@@ -265,4 +314,59 @@
   .outline-item:hover {
     color: LinkText;
   }
+}
+
+/* 添加大纲面板动画 */
+.outline-panel {
+  transition: all 0.3s ease;
+}
+
+/* 当大纲显示时调整编辑器容器的宽度 */
+.editor-container.with-outline {
+  margin-right: 250px;
+  width: calc(100% - 250px);
+}
+
+/* 当不显示大纲时的全屏样式 */
+.w-md-editor-fullscreen:not(.with-outline) {
+  width: 100% !important;
+  right: 0 !important;
+}
+
+/* 全屏模式下的大纲面板样式 */
+.w-md-editor-fullscreen.with-outline + .outline-panel {
+  position: fixed !important;
+  right: 0 !important;
+  top: 0 !important;
+  height: 100vh !important;
+  z-index: 9999 !important;
+  background-color: #f8f9fa !important;
+  border-left: 1px solid #dee2e6 !important;
+}
+
+/* 移动设备上的全屏模式 */
+@media (max-width: 768px) {
+  .w-md-editor-fullscreen {
+    width: 100% !important;
+    right: 0 !important;
+  }
+}
+
+/* 修改全屏模式相关样式 */
+.w-md-editor-fullscreen.with-outline {
+  width: calc(100% - 250px) !important;
+  left: 0 !important;
+  right: 250px !important;
+  margin: 0 !important;
+}
+
+/* 全屏模式下的大纲面板样式 */
+.w-md-editor-fullscreen.with-outline + .outline-panel {
+  position: fixed !important;
+  right: 0 !important;
+  top: 0 !important;
+  height: 100vh !important;
+  z-index: 9999 !important;
+  background-color: #f8f9fa !important;
+  border-left: 1px solid #dee2e6 !important;
 }
