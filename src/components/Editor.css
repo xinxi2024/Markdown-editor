@@ -370,3 +370,226 @@
   background-color: #f8f9fa !important;
   border-left: 1px solid #dee2e6 !important;
 }
+
+/* Mermaid 流程图样式 */
+.mermaid-container {
+  width: 100%;
+  overflow: auto;
+  margin: 1rem 0;
+  text-align: center;
+}
+
+.mermaid-container svg {
+  max-width: 100%;
+  height: auto;
+}
+
+.error-message {
+  color: #e74c3c;
+  padding: 10px;
+  border: 1px solid #e74c3c;
+  border-radius: 4px;
+  background-color: #fadbd8;
+  margin: 10px 0;
+}
+
+/* 流程图按钮样式 */
+.navbar-button[title="插入流程图 (Ctrl+M)"] {
+  background-color: #3498db;
+  color: white;
+}
+
+.navbar-button[title="插入流程图 (Ctrl+M)"]:hover {
+  background-color: #2980b9;
+}
+
+/* 甘特图按钮样式 */
+.navbar-button[title="插入甘特图 (Alt+G)"] {
+  background-color: #2ecc71;
+  color: white;
+}
+
+.navbar-button[title="插入甘特图 (Alt+G)"]:hover {
+  background-color: #27ae60;
+}
+
+/* 时序图按钮样式 */
+.navbar-button[title="插入时序图 (Alt+S)"] {
+  background-color: #e74c3c;
+  color: white;
+}
+
+.navbar-button[title="插入时序图 (Alt+S)"]:hover {
+  background-color: #c0392b;
+}
+
+/* 自定义Markdown预览样式 */
+.custom-markdown-preview {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+/* Mermaid块样式 */
+.mermaid-block {
+  background-color: white;
+  border-radius: 6px;
+  padding: 1rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  margin: 1rem 0;
+}
+
+/* Mermaid错误显示样式 */
+.mermaid-error {
+  border: 1px solid #e74c3c;
+  border-radius: 6px;
+  padding: 1rem;
+  margin: 1rem 0;
+  background-color: #fdf3f2;
+}
+
+.mermaid-source-code {
+  background-color: #f8f9fa;
+  padding: 0.5rem;
+  border-radius: 4px;
+  margin-top: 0.5rem;
+  color: #2c3e50;
+  font-family: monospace;
+  white-space: pre-wrap;
+  word-break: break-all;
+}
+
+/* 甘特图专用样式 */
+.mermaid-container svg.mermaid {
+  width: 100% !important;
+  max-width: 100%;
+  height: auto !important;
+  min-height: 300px;
+}
+
+/* 确保甘特图中的文本可见 */
+.mermaid-container .taskText,
+.mermaid-container .sectionTitle,
+.mermaid-container text.titleText {
+  fill: #2c3e50;
+  font-weight: normal;
+  font-family: 'Arial', sans-serif;
+}
+
+/* 强化甘特图中的标题 */
+.mermaid-container text.titleText {
+  font-size: 16px;
+  font-weight: bold;
+}
+
+/* 确保甘特图中的日期标签清晰可见 */
+.mermaid-container .taskTextOutsideRight,
+.mermaid-container .taskTextOutsideLeft,
+.mermaid-container .taskText {
+  fill: #333;
+  text-anchor: middle;
+}
+
+/* 美化甘特图中的任务条 */
+.mermaid-container .task {
+  stroke-width: 1;
+}
+
+/* 加强甘特图任务的悬停效果 */
+.mermaid-container .task:hover {
+  filter: brightness(0.9);
+}
+
+/* 甘特图备用显示样式 - 完全重写 */
+.gantt-fallback {
+  padding: 1.5rem;
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  border: 1px solid #e9ecef;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+  overflow-x: auto;
+}
+
+.gantt-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+  color: #2c3e50;
+  text-align: center;
+}
+
+.gantt-chart {
+  position: relative;
+  min-width: 600px;
+}
+
+.gantt-timeline-header {
+  display: flex;
+  border-bottom: 1px solid #e9ecef;
+  padding-bottom: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.gantt-timeline-marker {
+  flex: 1;
+  text-align: center;
+  font-size: 0.8rem;
+  color: #6c757d;
+  font-weight: 500;
+}
+
+.gantt-section {
+  margin-bottom: 1.5rem;
+}
+
+.gantt-section-name {
+  font-weight: 600;
+  color: #343a40;
+  margin-bottom: 0.5rem;
+  padding: 0.25rem 0.5rem;
+  background-color: #e9ecef;
+  border-radius: 4px;
+}
+
+.gantt-section-tasks {
+  padding-left: 1rem;
+}
+
+.gantt-task-row {
+  display: flex;
+  margin-bottom: 0.75rem;
+  align-items: center;
+}
+
+.gantt-task-name {
+  width: 120px;
+  padding-right: 1rem;
+  font-size: 0.9rem;
+  color: #495057;
+}
+
+.gantt-task-timeline {
+  flex: 1;
+  height: 30px;
+  background-color: #f1f3f5;
+  border-radius: 4px;
+  position: relative;
+}
+
+.gantt-task-bar {
+  position: absolute;
+  height: 100%;
+  background: linear-gradient(to right, #3498db, #2980b9);
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.gantt-task-label {
+  color: #fff;
+  font-size: 0.8rem;
+  font-weight: 500;
+  white-space: nowrap;
+}

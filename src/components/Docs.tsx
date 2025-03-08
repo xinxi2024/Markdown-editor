@@ -37,6 +37,7 @@ const Docs = () => {
               <li>支持任务列表（- [ ] 和 - [x]）</li>
               <li>支持水平分割线（---）</li>
               <li>支持图片插入（![alt](url)）</li>
+              <li><strong>新增：</strong>支持Mermaid流程图、时序图、甘特图等</li>
             </ul>
           </section>
 
@@ -45,69 +46,137 @@ const Docs = () => {
             <div className="syntax-example">
               <h3>标题</h3>
               <pre><code># 一级标题
-            ## 二级标题
-            ### 三级标题</code></pre>
+## 二级标题
+### 三级标题</code></pre>
             </div>
 
             <div className="syntax-example">
               <h3>文本格式</h3>
               <pre><code>**粗体文本**
-            *斜体文本*
-            ~~删除线~~
-            `行内代码`</code></pre>
+*斜体文本*
+~~删除线~~
+`行内代码`</code></pre>
             </div>
 
             <div className="syntax-example">
               <h3>列表</h3>
               <pre><code>- 无序列表项
-            1. 有序列表项
-            - [ ] 待办事项
-            - [x] 已完成事项</code></pre>
+1. 有序列表项
+- [ ] 待办事项
+- [x] 已完成事项</code></pre>
             </div>
 
             <div className="syntax-example">
               <h3>链接和图片</h3>
               <pre><code>[链接文本](https://example.com)
-            ![图片描述](image.jpg)</code></pre>
+![图片描述](image.jpg)</code></pre>
             </div>
 
             <div className="syntax-example">
               <h3>引用和分割线</h3>
-              <pre><code>&gt; 这是一段引用文本
+              <pre><code>{'>'} 这是一段引用文本
             
-            ---
+---
             
-            &gt; 多级引用
-            &gt;&gt; 二级引用</code></pre>
+{'>'} 多级引用
+{'>'}{'>'} 二级引用</code></pre>
             </div>
 
             <div className="syntax-example">
               <h3>表格</h3>
               <pre><code>| 表头1 | 表头2 |
-            | ----- | ----- |
-            | 内容1 | 内容2 |
-            | 内容3 | 内容4 |</code></pre>
+| ----- | ----- |
+| 内容1 | 内容2 |
+| 内容3 | 内容4 |</code></pre>
             </div>
 
             <div className="syntax-example">
               <h3>代码</h3>
               <pre><code>```javascript
-            console.log("Hello World");
-            ```
+console.log("Hello World");
+```
             
-            ```python
-            print("Hello World")
-            ```</code></pre>
+```python
+print("Hello World")
+```</code></pre>
             </div>
 
             <div className="syntax-example">
               <h3>数学公式</h3>
               <pre><code>行内公式：$E = mc^2$
             
-            块级公式：
-            $${`
-            \\frac{-b \\pm \\sqrt{b^2-4ac}}{2a}
-            `}$$</code></pre>
+块级公式：
+$${`
+\\frac{-b \\pm \\sqrt{b^2-4ac}}{2a}
+`}$$</code></pre>
+            </div>
+          </section>
+
+          <section className="docs-section">
+            <h2>Mermaid流程图</h2>
+            <p>本编辑器现在支持Mermaid流程图、甘特图、时序图等多种图表。</p>
+            
+            <div className="syntax-example">
+              <h3>基本流程图</h3>
+              <pre><code>{`\`\`\`mermaid
+graph TD
+    A[开始] --> B[处理]
+    B --> C{判断}
+    C -->|是| D[处理1]
+    C -->|否| E[处理2]
+    D --> F[结束]
+    E --> F
+\`\`\``}</code></pre>
+            </div>
+
+            <div className="syntax-example">
+              <h3>时序图</h3>
+              <pre><code>{`\`\`\`mermaid
+sequenceDiagram
+    participant 用户
+    participant 系统
+    用户->>系统: 登录请求
+    系统-->>用户: 返回登录结果
+    用户->>系统: 查询数据
+    系统-->>用户: 返回数据
+\`\`\``}</code></pre>
+            </div>
+
+            <div className="syntax-example">
+              <h3>甘特图</h3>
+              <pre><code>{`\`\`\`mermaid
+gantt
+    title 项目计划
+    dateFormat YYYY-MM-DD
+    section 阶段1
+    需求分析    :done, a1, 2023-01-01, 10d
+    设计        :active, a2, after a1, 15d
+    section 阶段2
+    开发        :a3, after a2, 20d
+    测试        :a4, after a3, 10d
+\`\`\``}</code></pre>
+            </div>
+
+            <div className="syntax-example">
+              <h3>类图</h3>
+              <pre><code>{`\`\`\`mermaid
+classDiagram
+    class Animal {
+        +name: string
+        +age: int
+        +makeSound()
+    }
+    class Dog {
+        +breed: string
+        +bark()
+    }
+    class Cat {
+        +color: string
+        +meow()
+    }
+    Animal <|-- Dog
+    Animal <|-- Cat
+\`\`\``}</code></pre>
             </div>
           </section>
 
@@ -123,19 +192,19 @@ const Docs = () => {
             <div className="syntax-example">
               <h3>块级公式</h3>
               <pre><code>$${`
-            \\frac{-b \\pm \\sqrt{b^2-4ac}}{2a}
-            `}$$</code></pre>
+\\frac{-b \\pm \\sqrt{b^2-4ac}}{2a}
+`}$$</code></pre>
             </div>
 
             <div className="syntax-example">
               <h3>常用数学符号</h3>
               <pre><code>$${`
-            \\sum_{i=1}^n i = \\frac{n(n+1)}{2}
+\\sum_{i=1}^n i = \\frac{n(n+1)}{2}
             
-            \\int_0^\\infty e^{-x^2} dx = \\frac{\\sqrt{\\pi}}{2}
+\\int_0^\\infty e^{-x^2} dx = \\frac{\\sqrt{\\pi}}{2}
             
-            \\lim_{x \\to 0} \\frac{\\sin x}{x} = 1
-            `}$$</code></pre>
+\\lim_{x \\to 0} \\frac{\\sin x}{x} = 1
+`}$$</code></pre>
             </div>
           </section>
 
@@ -170,6 +239,7 @@ const Docs = () => {
               <h3>其他</h3>
               <ul>
                 <li>Ctrl + T：插入表格（可自定义行列数）</li>
+                <li>Ctrl + M：插入Mermaid流程图模板</li>
                 <li>Ctrl + S：保存文档</li>
                 <li>F11：全屏模式</li>
               </ul>

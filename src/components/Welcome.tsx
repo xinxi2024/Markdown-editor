@@ -1,11 +1,13 @@
 import { useNavigate } from 'react-router-dom';
 import { useState, useCallback, useEffect } from 'react';
+import MermaidRenderer from './MermaidRenderer';
 
 const Welcome = () => {
     const navigate = useNavigate();
     const [showLogo, setShowLogo] = useState(false);
     const [clickCount, setClickCount] = useState(0);
     const [lastClickTime, setLastClickTime] = useState(0);
+    const [showFeatures, setShowFeatures] = useState(false);
 
     // 处理标题点击
     const handleTitleClick = useCallback(() => {
@@ -65,8 +67,59 @@ const Welcome = () => {
         box-shadow: 0 6px 20px rgba(44, 62, 80, 0.15), 0 10px 40px rgba(52, 152, 219, 0.2);
         transition: all 0.3s ease;
     }
+
+    .features-container {
+        margin-top: 30px;
+        padding: 20px;
+        background-color: #f8f9fa;
+        border-radius: 8px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        animation: fadeIn 0.5s ease-out;
+    }
+
+    .features-title {
+        text-align: center;
+        margin-bottom: 20px;
+        color: #2c3e50;
+    }
+
+    .feature-item {
+        margin-bottom: 10px;
+        display: flex;
+        align-items: center;
+        color: #2c3e50;
+    }
+
+    .feature-item:before {
+        content: "✓";
+        color: #2ecc71;
+        font-weight: bold;
+        margin-right: 10px;
+    }
+
+    .mermaid-example {
+        margin-top: 20px;
+        padding: 15px;
+        background-color: white;
+        border-radius: 6px;
+        box-shadow: 0 1px 5px rgba(0, 0, 0, 0.05);
+    }
+
+    .mermaid-title {
+        font-size: 18px;
+        margin-bottom: 10px;
+        color: #3498db;
+    }
     `;
     document.head.appendChild(styleSheet);
+
+    const simpleMermaidExample = `graph TD
+    A[开始] --> B[处理]
+    B --> C{判断}
+    C -->|是| D[处理1]
+    C -->|否| E[处理2]
+    D --> F[结束]
+    E --> F`;
 
     return (
         <div className="welcome-container">
@@ -96,6 +149,37 @@ const Welcome = () => {
                         开始使用
                     </button>
                 </div>
+
+                <button 
+                    style={{
+                        marginTop: '30px',
+                        padding: '8px 15px',
+                        backgroundColor: '#3498db',
+                        color: 'white',
+                        border: 'none',
+                        borderRadius: '4px',
+                        cursor: 'pointer',
+                        transition: 'background-color 0.3s'
+                    }}
+                    onClick={() => setShowFeatures(!showFeatures)}
+                >
+                    {showFeatures ? '隐藏新功能' : '查看新功能'}
+                </button>
+
+                {showFeatures && (
+                    <div className="features-container">
+                        <h2 className="features-title">新增功能：Mermaid流程图、时序图、甘特图等</h2>
+                        <div className="feature-item">支持流程图、时序图、甘特图等多种图表</div>
+                        <div className="feature-item">使用简单的文本语法创建专业图表</div>
+                        <div className="feature-item">实时预览，所见即所得</div>
+                        <div className="feature-item">快捷键 Ctrl+M 快速插入流程图模板</div>
+                        
+                        <div className="mermaid-example">
+                            <div className="mermaid-title">流程图示例：</div>
+                            <MermaidRenderer chart={simpleMermaidExample} />
+                        </div>
+                    </div>
+                )}
             </div>
             {/* 添加隐藏的Logo触发区域 */}
             <div 

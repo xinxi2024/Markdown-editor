@@ -5,6 +5,7 @@ import katex from 'katex';
 import 'katex/dist/katex.min.css';
 import './Editor.css';
 import BackButton from './BackButton';
+import MermaidRenderer from './MermaidRenderer';
 
 interface Heading {
   level: number;
@@ -14,6 +15,11 @@ interface Heading {
 
 interface MathProps {
   children: string;
+}
+
+interface CodeProps {
+  children: string;
+  className?: string;
 }
 
 const Editor = () => {
@@ -28,6 +34,39 @@ const Editor = () => {
         case 'o': // 改为 Alt + O：显示/隐藏大纲
           e.preventDefault();
           setShowOutline(prev => !prev);
+          break;
+        
+        case 'g': // Alt + G：插入甘特图
+          e.preventDefault();
+          const ganttTemplate = `\n\`\`\`mermaid
+gantt
+    title 项目计划
+    dateFormat X
+    axisFormat %d
+    
+    section 阶段1
+    需求分析    :0, 10d
+    设计        :10, 15d
+    
+    section 阶段2
+    开发        :25, 20d
+    测试        :45, 10d
+\`\`\`\n`;
+          setValue(prev => prev + ganttTemplate);
+          break;
+          
+        case 's': // Alt + S：插入时序图
+          e.preventDefault();
+          const sequenceTemplate = `\n\`\`\`mermaid
+sequenceDiagram
+    participant 用户
+    participant 系统
+    用户->>系统: 登录请求
+    系统-->>用户: 返回登录结果
+    用户->>系统: 查询数据
+    系统-->>用户: 返回数据
+\`\`\`\n`;
+          setValue(prev => prev + sequenceTemplate);
           break;
       }
     } else if (e.ctrlKey) {
@@ -74,6 +113,20 @@ const Editor = () => {
           saveAs(blob, 'document.md');
           break;
 
+        case 'm': // Ctrl + M：插入Mermaid流程图
+          e.preventDefault();
+          const mermaidTemplate = `\n\`\`\`mermaid
+graph TD
+    A[开始] --> B[处理]
+    B --> C{判断}
+    C -->|是| D[处理1]
+    C -->|否| E[处理2]
+    D --> F[结束]
+    E --> F
+\`\`\`\n`;
+          setValue(prev => prev + mermaidTemplate);
+          break;
+
         default:
           // 处理标题快捷键 Ctrl + 1~6
           if (e.key >= '1' && e.key <= '6') {
@@ -117,7 +170,7 @@ const Editor = () => {
           break;
       }
     }
-  }, [value]);
+  }, [value, setShowOutline, setValue]);
 
   // 添加和移除事件监听器
   useEffect(() => {
@@ -157,6 +210,58 @@ const Editor = () => {
     setHeadings(newHeadings);
   }, [value]);
 
+  // 自定义渲染函数，处理带有mermaid代码块的Markdown
+  const customRender = (markdownText: string) => {
+    try {
+      // 正则表达式匹配```mermaid代码块
+      const mermaidRegex = /```mermaid\s+([\s\S]*?)```/g;
+      let match;
+      let lastIndex = 0;
+      const segments = [];
+
+      // 查找所有mermaid代码块
+      while ((match = mermaidRegex.exec(markdownText)) !== null) {
+        // 添加代码块前的普通Markdown内容
+        if (match.index > lastIndex) {
+          const normalText = markdownText.substring(lastIndex, match.index);
+          segments.push(
+            <MDEditor.Markdown key={`text-${lastIndex}`} source={normalText} />
+          );
+        }
+
+        // 添加Mermaid渲染内容
+        const mermaidCode = match[1].trim();
+        console.log("找到Mermaid代码:", mermaidCode);
+        segments.push(
+          <div key={`mermaid-${match.index}`} className="mermaid-block">
+            <MermaidRenderer chart={mermaidCode} />
+          </div>
+        );
+
+        lastIndex = match.index + match[0].length;
+      }
+
+      // 添加最后一部分普通Markdown内容
+      if (lastIndex < markdownText.length) {
+        const normalText = markdownText.substring(lastIndex);
+        segments.push(
+          <MDEditor.Markdown key={`text-${lastIndex}`} source={normalText} />
+        );
+      }
+
+      // 如果没有找到mermaid代码块，直接渲染整个内容
+      if (segments.length === 0) {
+        return <MDEditor.Markdown source={markdownText} />;
+      }
+
+      return <div className="custom-markdown-preview">{segments}</div>;
+    } catch (error) {
+      console.error("自定义渲染错误:", error);
+      // 出错时回退到默认渲染
+      return <MDEditor.Markdown source={markdownText} />;
+    }
+  };
+
   return (
     <>
       <div className="container">
@@ -187,6 +292,65 @@ const Editor = () => {
             >
               大纲
             </button>
+            <button 
+              className="navbar-button"
+              onClick={() => {
+                const mermaidTemplate = `\n\`\`\`mermaid
+graph TD
+    A[开始] --> B[处理]
+    B --> C{判断}
+    C -->|是| D[处理1]
+    C -->|否| E[处理2]
+    D --> F[结束]
+    E --> F
+\`\`\`\n`;
+                setValue(prev => prev + mermaidTemplate);
+              }}
+              title="插入流程图 (Ctrl+M)"
+            >
+              流程图
+            </button>
+            <button 
+              className="navbar-button"
+              onClick={() => {
+                const ganttTemplate = `\n\`\`\`mermaid
+gantt
+    title 项目计划
+    dateFormat X
+    axisFormat %d
+    
+    section 阶段1
+    需求分析    :0, 10d
+    设计        :10, 15d
+    
+    section 阶段2
+    开发        :25, 20d
+    测试        :45, 10d
+\`\`\`\n`;
+                setValue(prev => prev + ganttTemplate);
+              }}
+              title="插入甘特图 (Alt+G)"
+            >
+              甘特图
+            </button>
+            <button 
+              className="navbar-button"
+              onClick={() => {
+                const sequenceTemplate = `\n\`\`\`mermaid
+sequenceDiagram
+    participant 用户
+    participant 系统
+    用户->>系统: 登录请求
+    系统-->>用户: 返回登录结果
+    用户->>系统: 查询数据
+    系统-->>用户: 返回数据
+\`\`\`\n`;
+                setValue(prev => prev + sequenceTemplate);
+              }}
+              title="插入时序图 (Alt+S)"
+            >
+              时序图
+            </button>
           </div>
         </nav>
         <div className={`main-content`}>
@@ -209,16 +373,41 @@ const Editor = () => {
                       console.error('数学公式渲染错误:', error);
                       return <div className="error-message">公式渲染出错</div>;
                     }
+                  },
+                  code: ({ children, className }: CodeProps) => {
+                    const language = className?.replace(/language-/, '');
+                    
+                    if (language === 'mermaid') {
+                      console.log('发现代码块mermaid组件:', children);
+                      try {
+                        return <MermaidRenderer chart={children} />;
+                      } catch (error) {
+                        console.error('Mermaid组件错误:', error);
+                        return <div className="error-message">流程图渲染出错: {String(error)}</div>;
+                      }
+                    }
+                    
+                    return <code className={className}>{children}</code>;
                   }
                 }
               }}
               components={{
                 preview: (source) => {
                   try {
-                    return <MDEditor.Markdown source={source} />
+                    // 使用自定义渲染逻辑
+                    console.log('源代码长度:', source?.length);
+                    
+                    // 检查源码中是否包含mermaid代码块
+                    if (source && source.includes('```mermaid')) {
+                      console.log('检测到mermaid代码块，使用自定义渲染');
+                      return customRender(source);
+                    }
+                    
+                    // 没有mermaid代码块时使用默认渲染
+                    return <MDEditor.Markdown source={source} />;
                   } catch (error) {
                     console.error('Markdown渲染错误:', error);
-                    return <div className="error-message">内容渲染出错</div>
+                    return <div className="error-message">内容渲染出错: {String(error)}</div>;
                   }
                 }
               }}
